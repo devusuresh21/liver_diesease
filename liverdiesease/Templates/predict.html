@@ -1,0 +1,197 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liver Disease Prediction</title>
+
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Add Custom CSS -->
+    <style>
+          body {
+    background-image: url('{% static "website/image/2.jpg" %}');
+    background-size: 100%; /* Adjust the percentage based on your preference */
+    background-repeat: repeat;
+    padding: 10px; /* Add padding for better visibility of content */
+    color: #f43366; /* Set text color to white for better contrast */
+}
+
+        form {
+            background-color: rgba(215, 163, 227, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(197, 19, 19, 0.2);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f1eff9; /* White text color */
+        }
+
+        label {
+            font-weight: bold;
+            color: #420789; /* White text color */
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #04086d;
+            border-radius: 5px;
+            background-color: #f0f6f7; /* Dark background color */
+            color: #080404; /* White text color */
+            ::placeholder {
+                color: #460590; /* Light color for placeholder text */
+            }
+        }
+
+        button[type="submit"] {
+            background-color: #7f0aed;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        small {
+            color: #090909; /* Light text color for additional information */
+        }
+    </style>
+</head>
+<body>
+    <h1>Liver Disease Prediction</h1>
+    <form method="post" action="{% url 'predict' %}">
+        {% csrf_token %}
+        
+        <!-- Age -->
+<label for="age">Age:</label>
+<input type="number" id="age" name="age" placeholder="Enter your age (e.g., 30)" required><br>
+
+<!-- Gender -->
+<label for="gender">Gender:</label>
+<select id="gender" name="gender" required>
+    <option value="0">Female</option>
+    <option value="1">Male</option>
+</select><br>
+
+<!-- Total Bilirubin -->
+<label for="total_bilirubin">Total Bilirubin (mg/dL):</label>
+<input type="number" step="0.01" id="total_bilirubin" name="total_bilirubin" placeholder="Enter total bilirubin level (e.g., 1.2)" required>
+<small class="form-text text-muted">Normal range: 0.1 - 1.2 mg/dL</small><br>
+
+<!-- Direct Bilirubin -->
+<label for="direct_bilirubin">Direct Bilirubin (mg/dL):</label>
+<input type="number" step="0.01" id="direct_bilirubin" name="direct_bilirubin" placeholder="Enter direct bilirubin level (e.g., 0.8)" required>
+<small class="form-text text-muted">Normal range: 0.1 - 0.4 mg/dL</small><br>
+
+<!-- Alkaline Phosphatase -->
+<label for="alkaline_phosphatase">Alkaline Phosphatase (IU/L):</label>
+<input type="number" id="alkaline_phosphatase" name="alkaline_phosphatase" placeholder="Enter alkaline phosphatase level (e.g., 120)" required>
+<small class="form-text text-muted">Normal range: 40 - 150 IU/L</small><br>
+
+<!-- Alamine Aminotransferase -->
+<label for="alamine_aminotransferase">Alamine Aminotransferase (IU/L):</label>
+<input type="number" id="alamine_aminotransferase" name="alamine_aminotransferase" placeholder="Enter alamine aminotransferase level (e.g., 25)" required>
+<small class="form-text text-muted">Normal range: 7 - 56 IU/L</small><br>
+
+<!-- Aspartate Aminotransferase -->
+<label for="aspartate_aminotransferase">Aspartate Aminotransferase (IU/L):</label>
+<input type="number" id="aspartate_aminotransferase" name="aspartate_aminotransferase" placeholder="Enter aspartate aminotransferase level (e.g., 30)" required>
+<small class="form-text text-muted">Normal range: 10 - 40 IU/L</small><br>
+
+<!-- Total Proteins -->
+<label for="total_proteins">Total Proteins (g/dL):</label>
+<input type="number" step="0.01" id="total_proteins" name="total_proteins" placeholder="Enter total proteins level (e.g., 7.5)" required>
+<small class="form-text text-muted">Normal range: 6.0 - 8.3 g/dL</small><br>
+
+<!-- Albumin -->
+<label for="albumin">Albumin (g/dL):</label>
+<input type="number" step="0.01" id="albumin" name="albumin" placeholder="Enter albumin level (e.g., 4.0)" required>
+<small class="form-text text-muted">Normal range: 3.5 - 5.0 g/dL</small><br>
+
+<!-- Albumin and Globulin Ratio -->
+<label for="albumin_and_globulin_ratio">Albumin and Globulin Ratio:</label>
+<input type="number" step="0.01" id="albumin_and_globulin_ratio" name="albumin_and_globulin_ratio" placeholder="Enter albumin and globulin ratio (e.g., 1.5)" required>
+<small class="form-text text-muted">Normal range: 1.2 - 2.2</small><br>
+
+<!-- Submit Button -->
+<button type="submit">Predict</button>
+
+    </form>
+     <!-- Add Bootstrap JS and jQuery (optional) -->
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+     <script>
+         function validateForm() {
+        // Age validation
+        var age = document.getElementById('age').value;
+        
+        // Check if age is a positive integer
+        if (!(/^\d+$/.test(age)) || age <= 0 || age > 150) {
+            alert('Please enter a valid age as a positive integer.');
+            return false;
+        }
+    
+            // Gender validation
+            var gender = document.getElementById('gender').value;
+            if (gender !== '0' && gender !== '1') {
+                alert('Please select a valid gender.');
+                return false;
+            }
+    
+            // Total Bilirubin validation
+            var totalBilirubin = document.getElementById('total_bilirubin').value;
+            if (totalBilirubin < 0) {
+                alert('Please enter a valid total bilirubin.');
+                return false;
+            }
+    
+            // Direct Bilirubin validation
+            var directBilirubin = document.getElementById('direct_bilirubin').value;
+            // Add additional checks as needed
+    
+            // Alkaline Phosphatase validation
+            var alkalinePhosphatase = document.getElementById('alkaline_phosphatase').value;
+            // Add additional checks as needed
+    
+            // Alamine Aminotransferase validation
+            var alamineAminotransferase = document.getElementById('alamine_aminotransferase').value;
+            // Add additional checks as needed
+    
+            // Aspartate Aminotransferase validation
+            var aspartateAminotransferase = document.getElementById('aspartate_aminotransferase').value;
+            // Add additional checks as needed
+    
+            // Total Proteins validation
+            var totalProteins = document.getElementById('total_proteins').value;
+            // Add additional checks as needed
+    
+            // Albumin validation
+            var albumin = document.getElementById('albumin').value;
+            // Add additional checks as needed
+    
+            // Albumin and Globulin Ratio validation
+            var albuminAndGlobulinRatio = document.getElementById('albumin_and_globulin_ratio').value;
+            // Add additional checks as needed
+    
+            return true; // Form will be submitted if all validations pass
+        }
+    </script>
+</body>
+</html>

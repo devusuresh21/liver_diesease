@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Add Custom CSS -->
+    <style>
+        body {
+    background-image: url('{% static "website/image/2.jpg" %}');
+    background-size: 100%; /* Adjust the percentage based on your preference */
+    background-repeat: repeat;
+    padding: 10px; /* Add padding for better visibility of content */
+    color: #f5edef; /* Set text color to white for better contrast */
+}
+
+        .container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #f2033b;
+            margin-bottom: 20px;
+        }
+
+        .result-message {
+            font-size: 25px;
+            margin-top: 20px;
+        }
+
+        .result-value {
+            color: #f4f0f1;
+            font-weight: bold;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #130101;
+            background-color: #9782ee;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .back-link:hover {
+            background-color: #0e7ff0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Prediction Result</h1>
+        <div class="result-message">
+            The predicted result is: <span class="result-value">{{ result_message }}</span>
+        </div>
+        <a href="{% url 'predict' %}" class="back-link">Back to Prediction</a>
+    </div>
+
+    <!-- Add Bootstrap JS and jQuery (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
